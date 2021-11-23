@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kumail.popularshop.viewmodel.MainViewModel" />
+
+        <variable
+            name="saleItem"
+            type="com.kumail.popularshop.data.model.SaleItem" />
+
+        <import type="com.kumail.popularshop.data.model.SaleItemKt" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:setVisibility="@{!viewModel.isLoading}">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_image_carousel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_indicator"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vp_image_carousel"
+                    app:tabBackground="@drawable/selector_tab"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    tools:background="@drawable/selector_tab" />
+
+                <TextView
+                    android:id="@+id/tv_user_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_small"
+                    android:paddingEnd="@dimen/padding_small"
+                    android:text="@{String.valueOf(saleItem.userId)}"
+                    android:textSize="@dimen/body_small"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price"
+                    app:layout_constraintEnd_toStartOf="@id/tv_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tl_indicator"
+                    tools:text="1234" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/TextAppearance.PopularShop.Price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:text="@{SaleItemKt.getPrice(saleItem)}"
+                    app:layout_constraintBottom_toTopOf="@id/tv_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_user_id"
+                    app:layout_constraintTop_toBottomOf="@id/tl_indicator"
+                    tools:text="£189" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/TextAppearance.PopularShop.ItemDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_xsmall"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:text="@{saleItem.description}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price"
+                    tools:text="Product description" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_loader"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setVisibility="@{viewModel.isLoading}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

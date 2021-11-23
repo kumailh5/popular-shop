@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Popular Shop</string>
+
+    <!--    UI strings-->
+    <string name="ok">Okay</string>
+    <string name="popular_items">Popular Items</string>
+
+    <!--    Error strings-->
+    <string name="error">Error</string>
+
+</resources>

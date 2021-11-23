@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/screen_sale_list">
+
+    <fragment
+        android:id="@+id/screen_sale_list"
+        android:name="com.kumail.popularshop.ui.itemslist.SaleListFragment"
+        tools:layout="@layout/fragment_sale_list">
+
+        <action
+            android:id="@+id/action_sale_list_to_sale_details"
+            app:destination="@id/screen_sale_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen_sale_details"
+        android:name="com.kumail.popularshop.ui.itemdetails.SaleDetailsFragment"
+        tools:layout="@layout/fragment_sale_details">
+        
+        <argument
+            android:name="saleItemId"
+            app:argType="integer" />
+    </fragment>
+
+</navigation>
