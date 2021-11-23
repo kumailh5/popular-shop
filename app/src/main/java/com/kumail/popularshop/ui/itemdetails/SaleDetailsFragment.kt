@@ -55,7 +55,7 @@ class SaleDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        saleItem?.pictures?.let { adapter.setPictures(it) }
+        saleItem?.pictures?.let { adapter.submitList(it) }
     }
 
     private fun setupDataBinding() {
@@ -66,11 +66,5 @@ class SaleDetailsFragment : Fragment() {
 
     private fun setupViewPager(viewPager: ViewPager2) {
         viewPager.adapter = adapter
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                adapter.notifyDataSetChanged()
-            }
-        })
     }
 }

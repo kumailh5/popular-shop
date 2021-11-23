@@ -11,8 +11,8 @@ fun Fragment.setToolbarTitle(title: String?) {
     activity?.title = title
 }
 
-fun List<Picture>.getPictureUrl(position: Int): String {
-    val formattedPictures = this[position].formats.values.sortedBy { it.width }
+fun Picture.getPictureUrl(): String {
+    val formattedPictures = this.formats.values.sortedBy { it.width }
     for (formattedPicture in formattedPictures) {
         if (deviceWidth <= formattedPicture.width)
             return formattedPicture.url

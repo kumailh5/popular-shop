@@ -3,6 +3,8 @@ package com.kumail.popularshop.ui.itemslist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kumail.popularshop.R
 import com.kumail.popularshop.data.model.SaleItem
@@ -17,9 +19,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class SaleListAdapter @Inject constructor() :
-    RecyclerView.Adapter<SaleListAdapter.ViewHolder>() {
+    ListAdapter<SaleItem, SaleListAdapter.ViewHolder>(SaleListDiffCallback) {
 
-    private var saleList = emptyList<SaleItem>()
     private var onItemClick: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,16 +32,7 @@ class SaleListAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(saleList[position])
-    }
-
-    override fun getItemCount(): Int {
-        return saleList.size
-    }
-
-    fun setSaleList(items: List<SaleItem>) {
-        saleList = items
-        notifyDataSetChanged()
+        holder.bind(getItem(position))
     }
 
     fun setOnItemClickListener(onClick: (Int) -> Unit) {
@@ -52,7 +44,7 @@ class SaleListAdapter @Inject constructor() :
 
         fun bind(saleItem: SaleItem) {
             binding.saleItem = saleItem
-            binding.ivProduct.loadImage(saleItem.pictures.getPictureUrl(0))
+            binding.ivProduct.loadImage(saleItem.pictures[0].getPictureUrl())
 
             binding.root.setOnClickListener {
                 onItemClick?.let {
@@ -60,5 +52,15 @@ class SaleListAdapter @Inject constructor() :
                 }
             }
         }
+    }
+}
+
+object SaleListDiffCallback : DiffUtil.ItemCallback<SaleItem>() {
+    override fun areItemsTheSame(oldItem: SaleItem, newItem: SaleItem): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: SaleItem, newItem: SaleItem): Boolean {
+        return oldItem == newItem
     }
 }

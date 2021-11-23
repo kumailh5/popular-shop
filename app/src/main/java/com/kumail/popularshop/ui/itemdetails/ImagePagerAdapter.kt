@@ -3,6 +3,8 @@ package com.kumail.popularshop.ui.itemdetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kumail.popularshop.R
 import com.kumail.popularshop.data.model.Picture
@@ -17,9 +19,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class ImagePagerAdapter @Inject constructor() :
-    RecyclerView.Adapter<ImagePagerAdapter.ViewHolder>() {
+    ListAdapter<Picture, ImagePagerAdapter.ViewHolder>(ImagesListDiffCallback) {
 
-    private var pictures = emptyList<Picture>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,14 +34,7 @@ class ImagePagerAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(pictures.getPictureUrl(position))
-    }
-
-    override fun getItemCount() = pictures.size
-
-    fun setPictures(items: List<Picture>) {
-        pictures = items
-        notifyDataSetChanged()
+        holder.bind(getItem(position).getPictureUrl())
     }
 
     inner class ViewHolder(private val binding: ItemImageCarouselBinding) :
@@ -48,5 +42,15 @@ class ImagePagerAdapter @Inject constructor() :
         fun bind(imageUrl: String) {
             binding.ivCarousel.loadImage(imageUrl)
         }
+    }
+}
+
+object ImagesListDiffCallback : DiffUtil.ItemCallback<Picture>() {
+    override fun areItemsTheSame(oldItem: Picture, newItem: Picture): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Picture, newItem: Picture): Boolean {
+        return oldItem == newItem
     }
 }

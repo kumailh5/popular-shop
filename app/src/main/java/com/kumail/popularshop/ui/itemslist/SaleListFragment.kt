@@ -64,7 +64,7 @@ class SaleListFragment : Fragment() {
         })
 
         viewModel.saleList.observe(viewLifecycleOwner, {
-            adapter.setSaleList(it)
+            adapter.submitList(it)
         })
     }
 

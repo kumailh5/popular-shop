@@ -4,6 +4,7 @@ import com.kumail.popularshop.PopularShopApplication.Companion.deviceWidth
 import com.kumail.popularshop.data.model.FormattedPicture
 import com.kumail.popularshop.data.model.Picture
 import com.kumail.popularshop.data.model.SaleItem
+import com.kumail.popularshop.data.model.getPrice
 import com.kumail.popularshop.util.getPictureUrl
 import org.junit.Assert.*
 import org.junit.Before
@@ -123,27 +124,27 @@ class DataVerificationTests {
         deviceWidth = 100
         assertEquals(
             "https://media-photos.depop.com/b0/3450029/1104631587_05027a8e7cba4b27b548803717294b58/P2.jpg",
-            item.pictures.getPictureUrl(0)
+            item.pictures[0].getPictureUrl()
         )
         deviceWidth = 640
         assertEquals(
             "https://media-photos.depop.com/b0/3450029/1104631587_05027a8e7cba4b27b548803717294b58/P1.jpg",
-            item.pictures.getPictureUrl(0)
+            item.pictures[0].getPictureUrl()
         )
         deviceWidth = 480
         assertEquals(
             "https://media-photos.depop.com/b0/3450029/1104631587_05027a8e7cba4b27b548803717294b58/P6.jpg",
-            item.pictures.getPictureUrl(0)
+            item.pictures[0].getPictureUrl()
         )
         deviceWidth = 1000
         assertEquals(
             "https://media-photos.depop.com/b0/3450029/1104631587_05027a8e7cba4b27b548803717294b58/P8.jpg",
-            item.pictures.getPictureUrl(0)
+            item.pictures[0].getPictureUrl()
         )
         deviceWidth = 1400
         assertEquals(
             "https://media-photos.depop.com/b0/3450029/1104631587_05027a8e7cba4b27b548803717294b58/P8.jpg",
-            item.pictures.getPictureUrl(0)
+            item.pictures[0].getPictureUrl()
         )
     }
 }
